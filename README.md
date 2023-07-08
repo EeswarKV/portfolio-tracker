@@ -24,27 +24,27 @@ This is a simple web application for portfolio analysis. Users can register, log
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/portfolio-analysis-web-app.git
+    git clone https://github.com/your-username/portfolio-analysis-web-app.git
 
 
 2. Navigate to the project directory:
 
-cd portfolio-analysis-web-app
+    cd portfolio-analysis-web-app
 
 
 3. Install the dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 
 4. Run the application:
 
-flask run
+    flask run
 
 
 5. Run the application:
 
-flask run
+    flask run
 
 
 6. Open your web browser and visit http://localhost:5000 to access the application.
