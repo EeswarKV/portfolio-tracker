@@ -1,20 +1,62 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Portfolio Analysis Web Application
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This is a simple web application for portfolio analysis. Users can register, log in, and analyze their investment portfolios.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Features
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- User registration: Users can create an account by providing their email, username, and password.
+- User login: Registered users can log in with their email and password.
+- Home page: After logging in, users are redirected to the home page where they can view their portfolio analysis.
+- Portfolio analysis: Users can analyze their investment portfolios to gain insights into their performance.
+- Logout: Users can log out of their accounts.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Technologies Used
+
+- Python
+- Flask
+- Flask-WTF
+- WTForms
+- Flask-Bcrypt
+- SQLAlchemy
+- SQLite
+
+## Setup Instructions
+
+1. Clone the repository:
+
+git clone https://github.com/your-username/portfolio-analysis-web-app.git
+
+
+2. Navigate to the project directory:
+
+cd portfolio-analysis-web-app
+
+
+3. Install the dependencies:
+
+pip install -r requirements.txt
+
+
+4. Run the application:
+
+flask run
+
+
+5. Run the application:
+
+flask run
+
+
+6. Open your web browser and visit http://localhost:5000 to access the application.
+
+
+7. Usage:
+
+    - Register: Click on the "Register" link on the navigation bar and fill out the registration form with your details.
+    - Log in: After registration, you will be redirected to the login page. Enter your email and password to log in.
+    - Home page: Upon successful login, you will be redirected to the home page where you can view your portfolio analysis.
+    - Logout: To log out of your account, click on the "Logout" link on the navigation bar.
+
+
+## License
+This project is licensed under the MIT License.
