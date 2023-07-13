@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Show Data on Google Pie Chart using Python Flask</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+       
+        .chart-container h3 {
+            text-align: center;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .switch-label {
+            margin-right: 10px;
+        }
+
+        .switch-checkbox {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch-slider {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 30px;
+        }
+
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.4s;
+        }
+
+        .switch-checkbox:checked {
+            transform: translateX(30px);
+        }
+    </style>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(toggleChartMode);
+        var chartMode = "invested"; // Declare chartMode as a global variable
+
+        function toggleChartMode() {
+            var switchElement = document.getElementById("chartSwitch");
+            chartMode = switchElement.checked ? "current" : "invested"; // Update the global chartMode variable
+
+            // Call a function to update the chart based on the mode
+            updateChart();
+        }
+
+        function updateChart() {
+            // Clear the existing charts
+            var chartIds = Object.keys(chartDatasets);
+            chartIds.forEach(function(chartId) {
+                var chartElement = document.getElementById("piechart_" + chartId);
+                if (chartElement) {
+                    chartElement.innerHTML = "";
+                }
+            });
+            // Draw new charts based on the selected mode
+            var selectedDatasets = chartMode === "invested" ? chartDatasets : dictObjCurrent;
+            var datasetKeys = Object.keys(selectedDatasets);
+            datasetKeys.forEach(function(chartId) {
+                var chartData = selectedDatasets[chartId];
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Value'],
+                    ...Object.entries(chartData).map(([key, value]) => [key, value])
+                ]);
+                var options = {
+                    title: chartId.replace(/"/g, '\\"').replace(/&/g, '&amp;'),
+                    is3D: true,
+                    colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart_' + chartId));
+                chart.draw(data, options);
+            });
+        }
+        var chartDatasets = {{ chart_datasets | tojson }};
+        var dictObjCurrent = {{ dict_obj_current | tojson }};
+    </script>
+</head>
+<body>
+    <div class="switch-main">
+        <label class="switch-label" for="chartSwitch">Switch to Current Amount</label>
+        <label class="switch">
+            <input type="checkbox" id="chartSwitch"  onchange="toggleChartMode()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div>
+        {% for chart_id, _ in chart_datasets.items() %}
+        <div class="chart-container">
+            <div id="piechart_{{ chart_id }}" class="chart" style="width: 650px; height: 350px;"></div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

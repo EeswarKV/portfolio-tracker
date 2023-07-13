@@ -1,0 +1,33 @@
+<form method="POST" action="{{ url_for('invest') }}">
+    {{ stock_form.csrf_token }}
+    <div class="form-group">
+        {{ stock_form.stock_symbol.label }}
+        {{ stock_form.stock_symbol }}
+        {% for error in stock_form.stock_symbol.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ stock_form.entry_price.label }}
+        {{ stock_form.entry_price }}
+        {% for error in stock_form.entry_price.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ stock_form.stock_quantity.label }}
+        {{ stock_form.stock_quantity }}
+        {% for error in stock_form.stock_quantity.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ stock_form.entry_date.label }}
+        {{ stock_form.entry_date(class="form-control", max=today) }}
+        {% for error in stock_form.entry_date.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="button-group button-group stock-entry">Add Stock Entry</button>
+    <hr>
+</form>

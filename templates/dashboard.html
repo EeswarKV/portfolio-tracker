@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Dashboard</title>
+    <!-- Step 1: Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container dashboard">
+        <h1>Dashboard</h1>
+        {% if analytical_data %}
+            <p>Gain control and stay informed with our dashboard!</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Average Price</th>
+                        <th>Quantity</th>
+                        <th>Last Entry Date</th>
+                        <th>Real-Time Price</th>
+                        <th>Invested</th>
+                        <th>Current</th>
+                        <th>P&L</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in analytical_data %}
+                    <tr>
+                        <td>{{ stock.stock_symbol }}</td>
+                        <td>{{ "\u20B9%.2f" % stock.average_price }}</td>
+                        <td>{{ stock.stock_quantity }}</td>
+                        <td>{{ stock.entry_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{  "\u20B9%.2f" % stock.real_time_price }}</td>
+                        <td>{{ "\u20B9%.2f" % (stock.stock_invested) }}</td>        
+                        <td>{{ "\u20B9%.2f" % (stock.real_time_price * stock.stock_quantity) }}</td>                 
+                        <td class="{% if stock.positive_return %}positive-return{% else %}negative-return{% endif %}">
+                            {{ "\u20B9%.2f" % ((stock.real_time_price * stock.stock_quantity) - (stock.stock_invested)) }} ({{ "%.2f" % stock.change_percentage }}%)
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="total-class">
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>{{ "\u20B9%.2f" % total_invested }}</strong></td>
+                        <td><strong>{{ "\u20B9%.2f" % total_current }}</strong></td>
+                        <td><strong>{{ "\u20B9%.2f" % (total_current - total_invested) }} ({{ "%.2f" % total_percentage }}%) </strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <p class="portfolio-para">Welcome to our investment monitoring platform, where possibilities are endless and opportunities await! We noticed that your portfolio is currently missing the exciting world of stocks. Don't worry, we've got you covered!</p>
+            <a class="cta-button" href="{{ url_for('invest') }}">Get Started</a>
+        {% endif %}
+        
+        <div id="piechart-container">
+            {% include 'piechart.html' %}
+        </div>
+    </div>
+
+    <!-- Step 2: Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

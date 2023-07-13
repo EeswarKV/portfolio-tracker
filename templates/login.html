@@ -18,13 +18,11 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="messages">
-                    {% for message in messages %}
-                        {% if message.startswith('danger') %}
-                            <li class="message-danger">
-                                <span class="message-text">{{ message[8:] }}</span>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
+                    {% if messages[0].startswith('danger') %}
+                        <li class="message-danger">
+                            <span class="message-text">{{ messages[0][8:] }}</span>
+                        </li>
+                    {% endif %}
                 </ul>
             {% endif %}
         {% endwith %}
