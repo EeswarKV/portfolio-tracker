@@ -1,74 +1,376 @@
-/* Center the login and registration forms vertically and horizontally */
+/* Global Styles */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #343a40 !important;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  max-height: 100vh;
+  flex-direction: column;
 }
 
-/* Style the login and registration forms */
-.login-form, .register-form {
-  width: 300px;
+.content {
+  width: 100%;
+  max-width: 800px;
   padding: 20px;
-  background-color: #efe3e3;
-  border-radius: 5px;
+  margin: 20px;
+  margin-top: 35px;
 }
 
-.login-form h2, .register-form h2 {
-  text-align: center;
+.form-group {
+  width: 300px;
   margin-bottom: 20px;
 }
 
-.login-form .form-group, .register-form .form-group {
-  margin-bottom: 15px;
-}
-
-.login-form .form-group label, .register-form .form-group label {
+label {
   display: block;
   font-weight: bold;
 }
 
-.login-form .form-group input, .register-form .form-group input {
+input[type="text"],
+input[type="number"],
+input[type="date"] {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.login-form .form-group .error, .register-form .form-group .error {
-  color: red;
-  font-size: 0.8rem;
-}
-
-.btn{
-
-  margin-top: 10px;
-}
-
-.message-success {
-  color: green;
-}
-
-.messages {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.message-danger {
-  background-color: #ffdddd;
-  border: 1px solid #ff0000;
-  color: #ff0000;
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.message-icon {
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.3rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear_table {
+  text-align: left;
+  margin-right: 180px;
+}
+
+.content > h1,
+.logout-nav {
+  color: coral;
+}
+
+.navbar-light .navbar-brand {
+  color: rgb(177, 107, 83) !important ;
   font-weight: bold;
-  margin-right: 5px;
 }
 
-.message-text {
-  display: inline-block;
+.dashboard > h1, .dashboard .table th {
+  color: rgb(177, 107, 83) !important;
 }
+
+.navbar-light .navbar-nav .nav-link {
+  color: lightslategrey !important;
+}
+
+.positive-return {
+  color: darkgreen;
+}
+
+.negative-return {
+  color: darkred;
+}
+
+.button-form {
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.2rem !important;
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.delete-form button {
+  font-size: 0.575rem !important;
+  margin-left: 5px;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.delete-form button:hover,
+.delete-form button:active,
+.delete-form button:focus {
+  background-color: #dc3545 !important;
+  color: #fff !important;
+}
+
+.edit-button {
+  font-size: 0.575rem !important;
+  border: 1px solid #007bff !important;
+  background-color: #fff !important;
+  color: #007bff !important;
+}
+
+.edit-button:hover {
+  border: 1px solid #007bff !important;
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+.delete-button {
+  font-size: 0.575rem !important;
+  border: 1px solid #dc3545 !important;
+  background-color: #fff !important;
+  color: #dc3545 !important;
+}
+
+.delete-button:hover {
+  border: 1px solid #dc3545 !important;
+  background-color: #dc3545 !important;
+  color: #fff !important;
+}
+
+.stock-entry{
+  background-color: lightslategrey !important;
+}
+
+.content > h1{
+  color: rgb(177, 107, 83) !important;
+}
+
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 20px;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.portfolio-entries{
+  height: 100vh;
+}
+
+
+.delete-modal {
+  border: 1px solid #dc3545 !important;
+  background-color: #fff !important;
+  color: #dc3545 !important;
+}
+
+.delete-modal:hover {
+  border: 1px solid #dc3545 !important;
+  background-color: #dc3545 !important;
+  color: #fff !important;
+}
+
+.no-stocks {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+  font-weight: bold;
+  color: #fff;
+}
+
+.portfolio-para  {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+
+.cta-button {
+  background-color: rgb(177, 107, 83) !important;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 40px;
+}
+
+.cta-button:hover{
+  color: #fff;
+}
+
+.home-heading{
+  color:  rgb(177, 107, 83) !important;
+  font-weight: bold;
+}
+
+.table .total-class td{
+  color: darkslategrey !important
+}
+
+.active-nav {
+  color: rgb(177, 107, 83) !important;
+  font-weight: bold;
+}
+
+
+#piechart-container {
+  margin-top: 40px;
+}
+
+
+.dashboard{
+  margin-top: 400px !important;
+}
+
+.chart-container {
+  display: inline-block;
+  width: 45%;
+  margin: 10px;
+}
+
+
+/* For Desktop View */
+@media screen and (min-width: 1024px) {
+    .chart-container {
+      display: inline-block;
+      width: 45%;
+      margin: 10px;
+    }
+}
+
+/* For Tablet View */
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    .chart-container {
+      width: 50% !important;
+      margin: 10px;
+    }
+    .container {
+            max-height: 125vh;
+        }
+    .portfolio-entries {
+        height: 30vh;
+    }
+    .container, .container-md, .container-sm {
+        min-width: 800px !important;
+    }
+
+}
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px)
+    and (orientation: portrait) {
+    .chart-container {
+      display: inline-block;
+      width: 50% !important;
+      margin: 10px;
+    }
+    .container {
+            max-height: 110vh !important;
+        }
+}
+
+/* For Mobile Phones Portrait or Landscape View */
+@media screen
+    and (max-device-width: 640px) {
+        .chart-container {
+          display: inline-block;
+          width: 50% !important;
+          margin: 10px;
+        }
+
+}
+
+/* For iPhone 4 Portrait or Landscape View */
+@media screen
+    and (min-device-width: 320px)
+    and (max-device-width: 640px)
+{
+        .chart-container {
+          display: inline-block;
+          width: 50% !important;
+          margin: 10px;
+        }
+
+        .container {
+            max-height: 70vh !important;
+        }
+         .portfolio-entries {
+        height: 20vh;
+    }
+    .container, .container-md, .container-sm {
+        min-width: 850px !important;
+    }
+
+}
+
+/* For iPhone 6 and 6 plus Portrait or Landscape View */
+@media (min-device-height: 667px)
+    and (min-device-width: 375px)
+    and (-webkit-min-device-pixel-ratio: 3) {
+        .chart-container {
+          display: inline-block;
+          width: 50% !important;
+          margin: 10px;
+        }
+        .container {
+            max-height: 110vh;
+        }
+
+};

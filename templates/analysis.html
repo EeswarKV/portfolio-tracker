@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Analysis</title>
+    <!-- Step 1: Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Stock Analysis</h1>
+    
+    <div id="entry-price-chart"></div>
+
+    <script>
+        // Step 2: Retrieve the entry prices from Flask and format them for the chart
+        var entryPrices = JSON.parse('{{ analytical_data | tojson | safe }}');
+
+        // Step 3: Prepare the data for the entry price chart
+        var dates = Object.keys(entryPrices);
+        var entryPricesData = [];
+        var realTimePricesData = [];
+
+        for (var i = 0; i < dates.length; i++) {
+            var date = dates[i];
+            entryPricesData.push(entryPrices[date].entry_price);
+            realTimePricesData.push(entryPrices[date].real_time_price);
+        }
+
+        // Step 4: Create the entry price chart
+        var data = [
+            {
+                x: dates,
+                y: entryPricesData,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Entry Price'
+            },
+            {
+                x: dates,
+                y: realTimePricesData,
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Real-Time Price'
+            }
+        ];
+
+        var layout = {
+            title: 'Entry Prices and Real-Time Prices',
+            xaxis: {
+                title: 'Date'
+            },
+            yaxis: {
+                title: 'Price'
+            }
+        };
+
+        Plotly.newPlot('entry-price-chart', data, layout);
+    </script>
+</body>
+</html>

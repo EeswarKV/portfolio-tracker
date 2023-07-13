@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Dashboard</title>
+    <!-- Step 1: Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container portfolio-entries">
+
+        <!-- Portfolio Entries Table -->
+        <h2>Portfolio Entries</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Stock Symbol</th>
+                    <th>Average Price</th>
+                    <th>Quantity</th>
+                    <th>Invested</th>
+                    <th>Last Entry Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in portfolio_entries %}
+                <tr>
+                    <td>{{ entry.stock_symbol }}</td>
+                    <td>{{ entry.entry_price }}</td>
+                    <td>{{ entry.stock_quantity }}</td>
+                    <td>{{ entry.entry_price * entry.stock_quantity }}</td>
+                    <td>{{ entry.entry_date.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        <a href="#" class="btn btn-primary edit-button" data-toggle="modal" data-target="#editModal{{ entry.id }}">Edit</a>
+                        <a href="#" class="btn btn-primary delete-button" data-toggle="modal" data-target="#deleteModal{{ entry.id }}">Delete</a>
+                    </td>
+                </tr>
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal{{ entry.id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form class="d-inline delete-form" action="{{ url_for('edit_entry', entry_id=entry.id) }}" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Portfolio Entry</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="stockSymbol{{ entry.id }}">Stock Symbol</label>
+                                        <input type="text" class="form-control" id="stockSymbol{{ entry.id }}" name="stock_symbol" value="{{ entry.stock_symbol }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entryPrice{{ entry.id }}">Entry Price</label>
+                                        <input type="number" class="form-control" id="entryPrice{{ entry.id }}" name="entry_price" value="{{ entry.entry_price }}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stockQuantity{{ entry.id }}">Quantity</label>
+                                        <input type="number" class="form-control" id="stockQuantity{{ entry.id }}" name="stock_quantity" value="{{ entry.stock_quantity }}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stockInvested{{ entry.id }}">Invested</label>
+                                        <input type="number" class="form-control" id="stockInvested{{ entry.id }}" name="stock_invested" value="{{  entry.entry_price * entry.stock_quantity }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entryDate{{ entry.id }}">Entry Date</label>
+                                        <input type="date" class="form-control" id="entryDate{{ entry.id }}" name="entry_date" value="{{ entry.entry_date.strftime('%Y-%m-%d') }}" max="{{ today }}" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal{{ entry.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form class="d-inline delete-form" action="{{ url_for('delete_entry', entry_id=entry.id) }}" method="POST">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Delete Portfolio Entry</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="stockSymbol{{ entry.id }}">Stock Symbol</label>
+                                        <input type="text" class="form-control" id="stockSymbol{{ entry.id }}" name="stock_symbol" value="{{ entry.stock_symbol }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entryPrice{{ entry.id }}">Entry Price</label>
+                                        <input type="number" class="form-control" id="entryPrice{{ entry.id }}" name="entry_price" value="{{ entry.entry_price }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stockQuantity{{ entry.id }}">Quantity</label>
+                                        <input type="number" class="form-control" id="stockQuantity{{ entry.id }}" name="stock_quantity" value="{{ entry.stock_quantity }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stockInvested{{ entry.id }}">Invested</label>
+                                        <input type="number" class="form-control" id="stockInvested{{ entry.id }}" name="stock_quantity" value="{{  entry.entry_price * entry.stock_quantity }}" required readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="entryDate{{ entry.id }}">Entry Date</label>
+                                        <input type="date" class="form-control" id="entryDate{{ entry.id }}" name="entry_date" value="{{ entry.entry_date.strftime('%Y-%m-%d') }}" max="{{ today }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary delete-modal">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Step 2: Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
