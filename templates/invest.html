@@ -1,4 +1,5 @@
-<form method="POST" action="{{ url_for('invest') }}">
+<h1 class="invest-title">{{ username }}, Grow Your Wealth! Add Stocks!</h1>
+<form method="POST" action="{{ url_for('invest') }}" class="invest-form">
     {{ stock_form.csrf_token }}
     <div class="form-group">
         {{ stock_form.stock_symbol.label }}
@@ -31,3 +32,6 @@
     <button type="submit" class="button-group button-group stock-entry">Add Stock Entry</button>
     <hr>
 </form>
+{% if portfolio_entries %}
+    {% include 'portfolio-entries.html' %}
+{% endif %}

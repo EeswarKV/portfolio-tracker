@@ -12,16 +12,14 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 100vh;
+  max-height: 80vh;
   flex-direction: column;
 }
 
 .content {
   width: 100%;
   max-width: 800px;
-  padding: 20px;
-  margin: 20px;
-  margin-top: 35px;
+  margin-top: 80px;
 }
 
 .form-group {
@@ -61,7 +59,7 @@ button[type="submit"]:hover {
 
 .table {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 5rem !important;
   color: #212529;
   border-collapse: collapse;
 }
@@ -200,9 +198,7 @@ button[type="submit"]:hover {
   top: 0;
   left: 0;
   width: 100%;
-}
-.portfolio-entries{
-  height: 100vh;
+  z-index: 999 !important;
 }
 
 
@@ -273,14 +269,9 @@ button[type="submit"]:hover {
   margin-top: 40px;
 }
 
-
-.dashboard{
-  margin-top: 400px !important;
-}
-
 .chart-container {
   display: inline-block;
-  width: 45%;
+  width: 30%;
   margin: 10px;
 }
 
@@ -289,7 +280,7 @@ button[type="submit"]:hover {
 @media screen and (min-width: 1024px) {
     .chart-container {
       display: inline-block;
-      width: 45%;
+      width: 30%;
       margin: 10px;
     }
 }
@@ -374,3 +365,35 @@ button[type="submit"]:hover {
         }
 
 };
+
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+  margin-top: 200px !important; /* Add margin to push content below the header */
+}
+
+
+.dashboard{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.dashboard h1,p{
+  text-align: center;
+}
+
+#piechart-container {
+  overflow-y: hidden;
+  z-index: 1; /* Ensure the container is behind the header */
+}
+
+.invest-form{
+  margin: 0 auto;
+  width: 20%;
+}
+
+.invest-title{
+  width: 50%;
+  margin: 0 auto;
+  color: rgb(177, 107, 83) !important;
+}
