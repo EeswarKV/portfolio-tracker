@@ -101,12 +101,10 @@
             <span class="slider round"></span>
         </label>
     </div>
-    <div>
         {% for chart_id, _ in chart_datasets.items() %}
         <div class="chart-container">
-            <div id="piechart_{{ chart_id }}" class="chart" style="width: 650px; height: 350px;"></div>
+            <div id="piechart_{{ chart_id }}" class="chart" style="width: 500px; height: 300px;"></div>
         </div>
         {% endfor %}
-    </div>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container dashboard">
+    <div class="dashboard">
         <h1>Dashboard</h1>
         {% if analytical_data %}
             <p>Gain control and stay informed with our dashboard!</p>
@@ -16,10 +16,10 @@
                         <th>Symbol</th>
                         <th>Average Price</th>
                         <th>Quantity</th>
-                        <th>Last Entry Date</th>
                         <th>Real-Time Price</th>
                         <th>Invested</th>
                         <th>Current</th>
+                        <th>Change %</th>
                         <th>P&L</th>
                     </tr>
                 </thead>
@@ -29,12 +29,12 @@
                         <td>{{ stock.stock_symbol }}</td>
                         <td>{{ "\u20B9%.2f" % stock.average_price }}</td>
                         <td>{{ stock.stock_quantity }}</td>
-                        <td>{{ stock.entry_date.strftime('%Y-%m-%d') }}</td>
                         <td>{{  "\u20B9%.2f" % stock.real_time_price }}</td>
-                        <td>{{ "\u20B9%.2f" % (stock.stock_invested) }}</td>        
-                        <td>{{ "\u20B9%.2f" % (stock.real_time_price * stock.stock_quantity) }}</td>                 
-                        <td class="{% if stock.positive_return %}positive-return{% else %}negative-return{% endif %}">
-                            {{ "\u20B9%.2f" % ((stock.real_time_price * stock.stock_quantity) - (stock.stock_invested)) }} ({{ "%.2f" % stock.change_percentage }}%)
+                        <td>{{ "\u20B9%.2f" % (stock.stock_invested) }}</td>
+                        <td>{{ "\u20B9%.2f" % (stock.real_time_price * stock.stock_quantity) }}</td>
+                        <td class="{% if stock.percent_change >= 0 %}positive-return{% else %}negative-return{% endif %}">{{  "%.2f" % stock.percent_change }}%</td>
+                        <td class="{% if ((stock.real_time_price * stock.stock_quantity) - stock.stock_invested) >= 0 %}positive-return{% else %}negative-return{% endif %}">
+                            {{ "\u20B9%.2f" % ((stock.real_time_price * stock.stock_quantity) - stock.stock_invested) }} ({{ "%.2f" % (((stock.real_time_price * stock.stock_quantity - stock.stock_invested) / (stock.real_time_price * stock.stock_quantity)) * 100) }}%)
                         </td>
                     </tr>
                     {% endfor %}
@@ -43,10 +43,12 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td><strong>{{ "\u20B9%.2f" % total_invested }}</strong></td>
                         <td><strong>{{ "\u20B9%.2f" % total_current }}</strong></td>
-                        <td><strong>{{ "\u20B9%.2f" % (total_current - total_invested) }} ({{ "%.2f" % total_percentage }}%) </strong></td>
+                        <td></td>
+                        <td class="{% if (total_current - total_invested) >= 0 %}positive-return{% else %}negative-return{% endif %}">
+                            <strong>{{ "\u20B9%.2f" % (total_current - total_invested) }} ({{ "%.2f" % (((total_current - total_invested) / total_invested) * 100) }}%)</strong>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -54,9 +56,13 @@
             <p class="portfolio-para">Welcome to our investment monitoring platform, where possibilities are endless and opportunities await! We noticed that your portfolio is currently missing the exciting world of stocks. Don't worry, we've got you covered!</p>
             <a class="cta-button" href="{{ url_for('invest') }}">Get Started</a>
         {% endif %}
-        
+
         <div id="piechart-container">
             {% include 'piechart.html' %}
+        </div>
+
+        <div id="fundamentals-container">
+            {% include 'fundamentals.html' %}
         </div>
     </div>
 
