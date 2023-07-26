@@ -7,7 +7,6 @@ from src.login_register import get_user_register, get_user_login, bcrypt
 from src.home import get_home_data
 
 app = Flask(__name__, static_url_path='/static')
-app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio-analysis.db'
 db.init_app(app) 
 bcrypt.init_app(app)
