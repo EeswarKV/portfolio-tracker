@@ -1,12 +1,13 @@
 
 from src.models import Portfolio, StockForm, db
 from flask import flash
+from flask import redirect, url_for, flash
 
-def get_portfolio_data_for_edit(user, entry_id):
-    if user:
+#edit the portfolio entry
+def edit_portfolio_entry(user, entry_id):
+    try:
         # Find the portfolio entry to edit
         entry = Portfolio.query.get(entry_id)
-
         if entry:
             # Check if the entry belongs to the current user
             if entry.user_id == user.id:
@@ -21,14 +22,15 @@ def get_portfolio_data_for_edit(user, entry_id):
                 flash('danger: Unauthorized access to edit entry.', 'danger')
         else:
             flash('danger: Portfolio entry not found.', 'danger')
-    else:
-        flash('danger: User not found.', 'danger')
+    except Exception as e:
+        print(f"Error trying to edit record: {e}")
+        return None
 
-def get_portfolio_data_for_delete(user, entry_id):
-    if user:
+#delete the portfolio entry
+def delete_portfolio_entry(user, entry_id):
+    try:
         # Find the portfolio entry to delete
         entry = Portfolio.query.get(entry_id)
-
         if entry:
             # Check if the entry belongs to the current user
             if entry.user_id == user.id:
@@ -39,5 +41,6 @@ def get_portfolio_data_for_delete(user, entry_id):
                 flash('danger: Unauthorized access to delete entry.', 'danger')
         else:
             flash('danger: Portfolio entry not found.', 'danger')
-    else:
-        flash('danger: User not found.', 'danger')
+    except Exception as e:
+        print(f"Error trying to delete record: {e}")
+        return None
