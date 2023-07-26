@@ -84,7 +84,6 @@ def clear_table():
     # Retrieve the current user
     user_id = session.get('user_id')
     user = User.query.get(user_id) if user_id else None
-
     if user:
         # Delete all portfolio entries associated with the user
         Portfolio.query.filter_by(user_id=user.id).delete()
@@ -92,7 +91,6 @@ def clear_table():
         flash('Portfolio table cleared successfully!', 'success')
     else:
         flash('danger: User not found.', 'danger')
-
     return redirect(url_for('invest'))
 
 @app.route('/edit_entry/<int:entry_id>', methods=['POST'])
