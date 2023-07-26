@@ -41,9 +41,8 @@ def get_company_fundamentals(symbol):
             if date.startswith(year):
                 for key, value in record.items():
                     cash_flow_2023.append(record[key])
-        #cash_from_operations = cash_flow_data[symbol]['cashflowStatementHistory']['cashflowStatements'][0]['operatingCashflow']
+                    
         pb_ratio = None
-
         if trailing_eps is not None and trailing_eps != 0:
             pe_ratio = current_price / trailing_eps
 

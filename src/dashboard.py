@@ -1,5 +1,5 @@
-from flask import render_template, flash, session
-from src.models import User, Portfolio, my_dictionary
+from flask import render_template
+from src.models import Portfolio, my_dictionary
 from src.stock_details import get_stock_details_cap, get_company_fundamentals
 
 def calculate_allocation(capitalization):
@@ -26,7 +26,7 @@ def get_portfolio_data(user):
     sector_allocation = my_dictionary()
     market_cap_allocation = my_dictionary()
     symbol_allocation_current = my_dictionary()
-    sector_allocation_current = my_dictionary()  # Define sector_allocation_current
+    sector_allocation_current = my_dictionary()
     market_cap_allocation_current = my_dictionary()
 
     portfolio_entries = Portfolio.query.filter_by(user_id=user.id).all()
@@ -78,7 +78,6 @@ def get_portfolio_data(user):
 
         stock_invested = sum(stock['stock_invested'] for stock in stocks_data)
 
-        stock_allocation = stock_invested / total_price
         symbol_allocation.add(stock_symbol, stock_invested)
         symbol_allocation_current.add(stock_symbol, current_price * stock_quantity)
 

@@ -12,8 +12,8 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    phone_number = db.Column(db.String(20), nullable=True)  # Assuming the phone number is a string (you can adjust the length as needed)
-    country_code = db.Column(db.String(5), nullable=True)  # Assuming the country code is a string (you can adjust the length as needed)
+    phone_number = db.Column(db.String(20), nullable=True)
+    country_code = db.Column(db.String(5), nullable=True)
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

@@ -1,7 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash, session
-from flask_bcrypt import Bcrypt
 from src.models import User, Portfolio, LoginForm, RegistrationForm, db
-from src.utils import calculate_weekly_performance
 from src.dashboard import get_portfolio_data
 from src.modify_entry import get_portfolio_data_for_edit, get_portfolio_data_for_delete
 from src.invest import get_invest_data
@@ -13,6 +11,7 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio-analysis.db'
 db.init_app(app) 
 bcrypt.init_app(app)
+
 #https://pypi.org/project/tradingview-ta/ to get basic analysis
 #https://pypi.org/project/yahoofinancials/ to get the financial information
 #https://pyfinmod.readthedocs.io/en/latest/basic.html to record financial situation

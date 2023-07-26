@@ -1,6 +1,5 @@
 import time
 from yahooquery import Ticker
-from datetime import datetime, timedelta
 import smtplib
 import ssl
 import certifi
