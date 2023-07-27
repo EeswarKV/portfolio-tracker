@@ -3,7 +3,21 @@ from src.models import Portfolio, db
 from datetime import datetime,date
 from src.utils import calculate_weekly_performance
 from src.forms import RegistrationForm, StockForm
+import pandas as pd
+import ssl
 
+ssl._create_default_https_context = ssl._create_unverified_context
+def get_nse_stock_codes():
+    stock_codes_url = 'https://archives.nseindia.com/content/equities/EQUITY_L.csv'
+    stocks_df = pd.read_csv(stock_codes_url)
+    # The stock codes are in the 'SYMBOL' column
+    stock_codes = stocks_df['SYMBOL'].tolist()
+    # Remove 'SYMBOL' from the list if it exists
+    if 'SYMBOL' in stock_codes:
+        stock_codes.remove('SYMBOL')
+    return stock_codes
+
+all_stock_codes = get_nse_stock_codes()
 
 def get_invest_data(user):
     try:
@@ -34,7 +48,7 @@ def get_invest_data(user):
                 stocks_data.append(stock_data)
             return render_template('base.html', username=username, is_authenticated=is_authenticated,
                                 registration_form=registration_form, stock_form=stock_form,
-                                portfolio_entries=portfolio_entries, stocks_data=stocks_data, today=today, active_item='invest')
+                                portfolio_entries=portfolio_entries, stocks_data=stocks_data, today=today, active_item='invest',stock_codes=all_stock_codes)
     except Exception as e:
         print(f"Error trying to redirecting to invest page: {e}")
         return redirect(url_for('invest'))
