@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for, flash, request
-from src.models import Portfolio, RegistrationForm, StockForm, db
+from src.models import Portfolio, db
 from datetime import datetime,date
 from src.utils import calculate_weekly_performance
+from src.forms import RegistrationForm, StockForm
 
 
 def get_invest_data(user):

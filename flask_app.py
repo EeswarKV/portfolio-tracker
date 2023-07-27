@@ -1,11 +1,12 @@
-from flask import Flask, render_template, redirect, url_for, session, request
-from src.models import User, Portfolio, LoginForm, RegistrationForm, db
+from flask import Flask, render_template, redirect, url_for, session
+from src.models import User, db
 from src.dashboard import get_portfolio_data
 from src.modify_entry import edit_portfolio_entry, delete_portfolio_entry
 from src.invest import get_invest_data
 from src.login_register import get_user_register, get_user_login, bcrypt
 from src.home import get_home_data
 from functools import wraps
+from src.forms import LoginForm, RegistrationForm
 
 app = Flask(__name__, static_url_path='/static')
 app.config.from_object('config.Config')

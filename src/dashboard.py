@@ -1,6 +1,7 @@
-from src.models import Portfolio, my_dictionary
+from src.models import Portfolio
 from src.stock_details import get_stock_details_cap, get_company_fundamentals
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for
+from src.my_dictionary import my_dictionary
 
 
 SMALL_CAP = 5000000000

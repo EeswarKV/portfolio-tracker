@@ -1,7 +1,7 @@
 
-from src.models import Portfolio, StockForm, db
+from src.models import Portfolio, db
 from flask import flash
-from flask import redirect, url_for, flash
+from src.forms import StockForm
 
 #edit the portfolio entry
 def edit_portfolio_entry(user, entry_id):
