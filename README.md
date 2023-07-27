@@ -57,6 +57,12 @@ This is a simple web application for portfolio analysis. Users can register, log
     - Home page: Upon successful login, you will be redirected to the home page where you can view your portfolio analysis.
     - Logout: To log out of your account, click on the "Logout" link on the navigation bar.
 
+![register](static/images/snapshot3.png)
+![login](static/images/snapshot4.png)
+![Homepage](static/images/snapshot2.png)
+![InvestPage](static/images/snapshot5.png)
+![Dashboard](static/images/snapshot1.png)
+
 
 ## License
 This project is licensed under the MIT License.
