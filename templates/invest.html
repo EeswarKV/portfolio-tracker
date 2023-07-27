@@ -3,11 +3,11 @@
     {{ stock_form.csrf_token }}
     <div class="form-group">
         {{ stock_form.stock_symbol.label }}
-        <input list="stock-codes" id="stock_symbol" name="stock_symbol" />
+        <input list="stock-codes" id="stockSymbol" class="form-control" name="stock_symbol" />
         <datalist id="stock-codes">
-          {% for stock_code in stock_codes %}
-          <option value="{{ stock_code }}">
-          {% endfor %}
+            {% for stock_code in stock_codes %}
+                <option value="{{ stock_code }}">
+            {% endfor %}
         </datalist>
         {% for error in stock_form.stock_symbol.errors %}
             <div class="error">{{ error }}</div>
@@ -37,6 +37,21 @@
     <button type="submit" class="button-group button-group stock-entry">Add Stock Entry</button>
     <hr>
 </form>
+<script>
+    var stockCodes = {{ stock_codes|tojson }};
+    var stockSymbolInput = document.getElementById("stockSymbol");
+
+    stockSymbolInput.addEventListener("change", function () {
+        var enteredValue = stockSymbolInput.value;
+        var matchingOption = stockCodes.find(function (code) {
+            return code === enteredValue;
+        });
+
+        if (!matchingOption) {
+            stockSymbolInput.value = "";
+        }
+    });
+</script>
 {% if portfolio_entries %}
     {% include 'portfolio-entries.html' %}
 {% endif %}

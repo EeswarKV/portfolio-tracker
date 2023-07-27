@@ -392,3 +392,8 @@ body {
   margin: 0 auto;
   color: rgb(177, 107, 83) !important;
 }
+
+
+#stockSymbol{
+  height: 50px;
+}
