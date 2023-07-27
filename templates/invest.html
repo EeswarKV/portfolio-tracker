@@ -3,7 +3,12 @@
     {{ stock_form.csrf_token }}
     <div class="form-group">
         {{ stock_form.stock_symbol.label }}
-        {{ stock_form.stock_symbol }}
+        <input list="stock-codes" id="stock_symbol" name="stock_symbol" />
+        <datalist id="stock-codes">
+          {% for stock_code in stock_codes %}
+          <option value="{{ stock_code }}">
+          {% endfor %}
+        </datalist>
         {% for error in stock_form.stock_symbol.errors %}
             <div class="error">{{ error }}</div>
         {% endfor %}
