@@ -2,6 +2,8 @@
 
 This is a simple web application for portfolio analysis. Users can register, log in, and analyze their investment portfolios.
 
+To run the demo application please visit: http://eshwar524.pythonanywhere.com/
+
 ## Features
 
 - User registration: Users can create an account by providing their email, username, and password.
