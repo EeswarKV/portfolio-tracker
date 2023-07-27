@@ -2,7 +2,7 @@ from wtforms import StringField, PasswordField, SubmitField, FloatField, DateFie
 from wtforms.validators import DataRequired, Email, EqualTo
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from src.choices import list_of_country_codes
+from country_codes import list_of_country_codes
 from datetime import datetime
 
 db = SQLAlchemy()
