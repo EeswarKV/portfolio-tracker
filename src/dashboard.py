@@ -24,7 +24,7 @@ def calculate_allocation(capitalization):
         return None
 
 #return stock related data object
-def create_stock_data(stock_symbol, entry_price, stock_quantity, entry_date, current_price, stock_invested):
+def create_stock_data(stock_symbol, entry_price, stock_quantity, entry_date, current_price, stock_invested, percent_change):
     try:
         stock_data = {
             'stock_symbol': stock_symbol,
@@ -35,7 +35,7 @@ def create_stock_data(stock_symbol, entry_price, stock_quantity, entry_date, cur
             'positive_return': False,
             'stock_invested': stock_invested,
             'average_price': stock_invested / stock_quantity,
-            'percent_change': 0 if current_price is None else ((stock_invested - (current_price * stock_quantity)) / (current_price * stock_quantity)) * 100
+            'percent_change': percent_change
         }
         if current_price is not None:
             stock_data['positive_return'] = current_price > entry_price
@@ -59,7 +59,7 @@ def prepare_stocks_data(portfolio_entries):
             entry_date = entry.entry_date
             total_price += entry_price * stock_quantity
             symbol_occurrences[stock_symbol] = symbol_occurrences.get(stock_symbol, 0) + 1
-            _, _, current_price, _ = get_stock_details_cap(stock_symbol + '.NS')
+            _, _, current_price, percent_change = get_stock_details_cap(stock_symbol + '.NS')
             stock_invested = entry_price * stock_quantity
             if stock_symbol in stocks_symbol:
                 stock_invested += (entry_price * stock_quantity)
@@ -72,7 +72,7 @@ def prepare_stocks_data(portfolio_entries):
                 existing_stock['average_price'] = existing_stock['entry_price'] / symbol_occurrences[stock_symbol]
                 existing_stock['stock_invested'] = existing_stock['average_price'] * existing_stock['stock_quantity']
             else:
-                stock_data = create_stock_data(stock_symbol, entry_price, stock_quantity, entry_date, current_price, stock_invested)
+                stock_data = create_stock_data(stock_symbol, entry_price, stock_quantity, entry_date, current_price, stock_invested, percent_change)
                 stocks_data.append(stock_data)
 
         return stocks_data, total_price

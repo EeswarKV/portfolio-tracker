@@ -86,20 +86,21 @@ def dashboard(user):
     
 @app.route('/edit_entry/<int:entry_id>', methods=['POST'])
 @login_required
-def edit_entry(entry_id,user):
-    return handle_entry_action(edit_portfolio_entry, entry_id, user)
+def edit_entry(user, entry_id):
+    return handle_entry_action(user, edit_portfolio_entry, entry_id)
 
 @app.route('/delete_entry/<int:entry_id>', methods=['POST'])
 @login_required
-def delete_entry(entry_id, user):
-    return handle_entry_action(delete_portfolio_entry, entry_id, user)
+def delete_entry(user, entry_id):
+    return handle_entry_action(user, delete_portfolio_entry, entry_id)
 
-def handle_entry_action(action_function, entry_id, user):
+def handle_entry_action(user, action_function, entry_id):
     try:
-        return action_function(user, entry_id)
+        action_function(user, entry_id)
+        return redirect(url_for('invest'))  # Redirect to the dashboard
     except Exception as e:
         print(f"Error trying to perform action on entry: {e}")
-        return None
+        return "Error", 500  # Return an error message
 
 
 #returns to login template once logout succesful
