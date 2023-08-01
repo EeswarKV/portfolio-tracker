@@ -52,10 +52,6 @@
                     </tr>
                 </tbody>
             </table>
-        {% else %}
-            <p class="portfolio-para">Welcome to our investment monitoring platform, where possibilities are endless and opportunities await! We noticed that your portfolio is currently missing the exciting world of stocks. Don't worry, we've got you covered!</p>
-            <a class="cta-button" href="{{ url_for('invest') }}">Get Started</a>
-        {% endif %}
 
         <div id="piechart-container">
             {% include 'piechart.html' %}
@@ -64,6 +60,11 @@
         <div id="fundamentals-container">
             {% include 'fundamentals.html' %}
         </div>
+        {% else %}
+        <p class="portfolio-para">Welcome to our investment monitoring platform, where possibilities are endless and opportunities await! We noticed that your portfolio is currently missing the exciting world of stocks. Don't worry, we've got you covered!</p>
+        <a class="cta-button invest-button" href="{{ url_for('invest') }}">Get Started</a>
+        {% endif %}
+
     </div>
 
     <!-- Step 2: Include Bootstrap JS -->

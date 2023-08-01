@@ -397,3 +397,7 @@ body {
 #stockSymbol{
   height: 50px;
 }
+
+.invest-button{
+  margin: 0 600px;
+}
