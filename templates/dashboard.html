@@ -34,7 +34,7 @@
                         <td>{{ "\u20B9%.2f" % (stock.real_time_price * stock.stock_quantity) }}</td>
                         <td class="{% if stock.percent_change >= 0 %}positive-return{% else %}negative-return{% endif %}">{{  "%.2f" % stock.percent_change }}%</td>
                         <td class="{% if ((stock.real_time_price * stock.stock_quantity) - stock.stock_invested) >= 0 %}positive-return{% else %}negative-return{% endif %}">
-                            {{ "\u20B9%.2f" % ((stock.real_time_price * stock.stock_quantity) - stock.stock_invested) }} ({{ "%.2f" % (((stock.real_time_price * stock.stock_quantity - stock.stock_invested) / (stock.real_time_price * stock.stock_quantity)) * 100) }}%)
+                            {{ "\u20B9%.2f" % ((stock.real_time_price * stock.stock_quantity) - stock.stock_invested) }} ({{ "%.2f" % (((stock.real_time_price * stock.stock_quantity - stock.stock_invested) / stock.stock_invested) * 100) }}%)
                         </td>
                     </tr>
                     {% endfor %}

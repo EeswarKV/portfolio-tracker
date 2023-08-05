@@ -57,9 +57,9 @@ def prepare_stocks_data(portfolio_entries):
             entry_price = entry.entry_price
             stock_quantity = entry.stock_quantity
             entry_date = entry.entry_date
-            total_price += entry_price * stock_quantity
             symbol_occurrences[stock_symbol] = symbol_occurrences.get(stock_symbol, 0) + 1
             _, _, current_price, percent_change = get_stock_details_cap(stock_symbol + '.NS')
+            total_price += entry_price * stock_quantity
             stock_invested = entry_price * stock_quantity
             if stock_symbol in stocks_symbol:
                 stock_invested += (entry_price * stock_quantity)
@@ -132,7 +132,7 @@ def get_portfolio_data(user):
             portfolio_entries = Portfolio.query.filter_by(user_id=user.id).all()
             stocks_data, total_price = prepare_stocks_data(portfolio_entries)
             total_current, total_invested, dict_obj_new, dict_obj_current = calculate_allocations(stocks_data)
-            total_percentage = ((total_current - total_price) / total_current) * 100 if total_current != 0 else 0
+            total_percentage = ((total_current - total_invested) / total_current) * 100 if total_current != 0 else 0
             stock_fundamentals = [get_company_fundamentals(stock['stock_symbol'] + '.NS') for stock in stocks_data]
 
             return render_template(
@@ -140,7 +140,7 @@ def get_portfolio_data(user):
                 analytical_data=stocks_data,
                 is_authenticated=user is not None,
                 is_dashboard=True,
-                total_invested=total_price,
+                total_invested=total_invested,
                 total_current=total_current,
                 total_percentage=total_percentage,
                 active_item='dashboard',

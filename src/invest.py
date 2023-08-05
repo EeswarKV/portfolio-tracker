@@ -5,6 +5,8 @@ from src.utils import calculate_weekly_performance
 from src.forms import RegistrationForm, StockForm
 import pandas as pd
 from src.constants import list_of_stock_symbols
+import json
+from src.stock_details import get_stock_details_cap
 
 def get_invest_data(user):
     try:
@@ -28,14 +30,16 @@ def get_invest_data(user):
             portfolio_entries = Portfolio.query.filter_by(user_id=user.id).all()
             stocks_data = []
             for entry in portfolio_entries:
+                _, _, current_price, _ = get_stock_details_cap(entry.stock_symbol + '.NS')
                 stock_data = {
                     'stock_symbol': entry.stock_symbol,
+                    'stock_price': round(current_price, 2),
                     'weekly_performance': calculate_weekly_performance(entry.entry_date)
                 }
                 stocks_data.append(stock_data)
             return render_template('base.html', username=username, is_authenticated=is_authenticated,
                                 registration_form=registration_form, stock_form=stock_form,
-                                portfolio_entries=portfolio_entries, stocks_data=stocks_data, today=today, active_item='invest',stock_codes=list_of_stock_symbols)
+                                portfolio_entries=portfolio_entries, stocks_data=stocks_data, today=today, active_item='invest', stock_codes=list_of_stock_symbols)
     except Exception as e:
         print(f"Error trying to redirecting to invest page: {e}")
         return redirect(url_for('invest'))
